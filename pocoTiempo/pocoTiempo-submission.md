@@ -1,18 +1,18 @@
-**Team:** 
+**Team:**   
 PocoTiempo  
 
-**Members:** 
+**Members:**   
 Rajeev  
 Maurelian  
 Mariano Conti  
 
-**Ethereum Address:** 
+**Ethereum Address:**   
 To be sent very soon by Maurelian  
 
-**Reported Bugs**
+**Reported Bugs**  
 9 
 
-**Gas Optimizations**
+**Gas Optimizations**  
 2
 
 # Findings:  
