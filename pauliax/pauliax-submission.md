@@ -4,7 +4,7 @@ paulius.eth
 **Ethereum Address:**  
 0x523B5b2Cc58A818667C22c862930B141f85d49DD    
 
-**Reported Bugs**
+**Reported Bugs**  
 8  
 
 **Gas Optimizations**  
