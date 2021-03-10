@@ -127,3 +127,96 @@ We do not view this as an issue. It may be considered by some to be bad practice
 5. __Acknowledged__, This is for convenience on the frontend. The one time gas cost replaces repeated `O(n)` calls to the node with a single call (`O(1)`).
 6. __Acknowledged__, We believe that the safety provided by additional, arguably unneccesary, calls to preventReentry justify the extra gas spent.
 
+## gpersoon
+
+### [Bug 1](https://github.com/code-423n4/contest-2-results/blob/main/gpersoon/gpersoon-submission.md#bug-1)
+
+Status: __Acknowledged__
+
+#### Team Comments
+
+This choice was made primarily for gas reasons. The worst case scenario, a full loss of allowance data, is that every wallet needs to re-approve the spending of their tokens.
+
+### [Bug 2](https://github.com/code-423n4/contest-2-results/blob/main/gpersoon/gpersoon-submission.md#bug-2)
+
+Status: __Confirmed__, Resolved in [PR #48](https://github.com/elasticdao/contracts/pull/48)
+
+#### Team Comments
+
+Great catch. Thanks!
+
+### [Bug 3](https://github.com/code-423n4/contest-2-results/blob/main/gpersoon/gpersoon-submission.md#bug-3)
+
+Status: __Confirmed__, Resolved in [PR #46](https://github.com/elasticdao/contracts/pull/46)
+
+#### Team Comments
+
+Agreed. Consistency is better here, despite it's minimal impact.
+
+### [Bug 4](https://github.com/code-423n4/contest-2-results/blob/main/gpersoon/gpersoon-submission.md#bug-4)
+
+Status: __Confirmed__, Resolved in [PR #44](https://github.com/elasticdao/contracts/pull/44)
+
+#### Team Comments
+
+Good note. We've made the change to penalize with the value passed or their full balance, whichever is less.
+
+### [Safe Gas 1](https://github.com/code-423n4/contest-2-results/blob/main/gpersoon/gpersoon-submission.md#safe-gas-1)
+
+Status: __Disputed__
+
+#### Team Comments
+
+The warden states that `The Eternal Storage pattern is not used in the way it is designed.` We use the original pattern, and simply add an struct abstraction layer on top to mitigate stack overflow errors in other functions. Doing it this way also saves gas, as a call to an external function is expensive, and multiple calls for a set of data is drastically more expensive. This is also the reason for having the EternalModel functions be internal, rather than external as described in the spec. ElasticModel derived contracts are purpose built and used `with the sole purpose of acting as a storage to another contract`.
+
+The warden further states `Because the Proxy pattern is already used, the Eternal Storage pattern is not necessary and just complicates the source and uses a lot of gas.` We disagree. Using the EternalModel pattern makes the underlying storage data directly available to external callers. It also allows us to upgrade the structs in the future with no negative impact on the underlying data, as with other standards like Diamond, or with the scenario where a struct is stored directly on the contract. With other patterns, changing the order of the struct keys or removing a key bricks the contract. With the EternalModel pattern, this is not the case. The additional gas costs of the pattern are noticable, but relatively small compared to the safety and data accessibility features they provide.
+
+### [Safe Gas 2](https://github.com/code-423n4/contest-2-results/blob/main/gpersoon/gpersoon-submission.md#6-safe-gas-2)
+
+Status: __Confirmed__, Resolved in [PR #81](https://github.com/elasticdao/contracts/pull/81)
+
+#### Team Comments
+
+Good catch.
+
+### [Safe Gas 3](https://github.com/code-423n4/contest-2-results/blob/main/gpersoon/gpersoon-submission.md#7-safe-gas-3)
+
+Status: __Confirmed__, Resolved in [PR #59](https://github.com/elasticdao/contracts/pull/59)
+
+#### Team Comments
+
+To the judges, we think this should count as a full bug, not a gas improvement. It is functionally the same as: https://github.com/code-423n4/contest-2-results/blob/main/sponsor-comments/comments.md#bug-5
+
+## janbro
+
+### [Issue 1](https://github.com/code-423n4/contest-2-results/blob/main/janbro/janbro-submission.md#issue-1)
+
+Status: __Disputed__
+
+#### Team Comments
+
+This does not bear out if you actually call the contracts. Unable to reproduce and every bit of testing we've done contradicts this report.
+
+### [Issue 2](https://github.com/code-423n4/contest-2-results/blob/main/janbro/janbro-submission.md#issue-2)
+
+Status: __Confirmed__, Resolved in [PR #48](https://github.com/elasticdao/contracts/pull/48)
+
+#### Team Comments
+
+Great catch. Thanks!
+
+### [Issue 3](https://github.com/code-423n4/contest-2-results/blob/main/janbro/janbro-submission.md#issue-3)
+
+Status: __Confirmed__, Resolved in [PR #59](https://github.com/elasticdao/contracts/pull/59)
+
+#### Team Comments
+
+For the judges, the suggested fix is not valid, but the issue is. Both of the previous submitters also flagged this.
+
+### [Issue 4](https://github.com/code-423n4/contest-2-results/blob/main/janbro/janbro-submission.md#issue-4)
+
+Status: __Disputed__
+
+### Team Comments
+
+The referenced functionality is performing as expected. It's possible that the warden did not understand intent, but the report is incorrect.
