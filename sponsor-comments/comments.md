@@ -321,3 +321,102 @@ This should not be an issue, as summoners are only set before the DAO is summone
 - __Acknowledged__, We believe that the safety provided by additional, arguably unneccesary, calls to preventReentry justify the extra gas spent.
 - __Acknowledged__, this is the case in a few instances, but the gas cost is not large enough to justify the extra function(s)
 
+## pocoTiempo
+
+### [Bug 1](https://github.com/code-423n4/contest-2-results/blob/main/pocoTiempo/pocoTiempo-submission.md#bug-1)
+
+Status: __Confirmed__, fixed in [PR #47](https://github.com/elasticdao/contracts/pull/47/files#diff-b01d843824b5d557c2914b0f42fdf4ef84315a85723a9640b7040ec8c29f2cefR115)
+
+#### Team Comments
+
+Good catch. Thanks!
+
+### [Bug 2](https://github.com/code-423n4/contest-2-results/blob/main/pocoTiempo/pocoTiempo-submission.md#bug-2)
+
+Status: __Confirmed__, fixed in [PR #78](https://github.com/elasticdao/contracts/pull/78)
+
+#### Team Comments
+
+Unlikely issue, and wouldn't really bork anything serious, but good check to add. Thanks.
+
+### [Bug 3](https://github.com/code-423n4/contest-2-results/blob/main/pocoTiempo/pocoTiempo-submission.md#bug-3)
+
+Status: __Acknowledged__
+
+#### Team Comments
+
+The vulnerability is correct, however, the impact is incorrect. Because we deploy with proxies, in a worst case scenario, the proxy implementation could be upgraded to fix this issue.
+
+### [Bug 4](https://github.com/code-423n4/contest-2-results/blob/main/pocoTiempo/pocoTiempo-submission.md#bug-4)
+
+Status: __Confirmed__, fixed in [PR #54](https://github.com/elasticdao/contracts/pull/54)
+
+#### Team Comments
+
+Good spot. Thanks.
+
+### [Bug 5](https://github.com/code-423n4/contest-2-results/blob/main/pocoTiempo/pocoTiempo-submission.md#bug-5)
+
+Status: __Acknowledged__
+
+#### Team Comments
+
+This issue is present in most ERC20 tokens and very few choose to take the recommended mitigation step. We've choosen to go with expected behaviour instead of removing a function that is part of the spec.
+
+### [Bug 6](https://github.com/code-423n4/contest-2-results/blob/main/pocoTiempo/pocoTiempo-submission.md#bug-6)
+
+Status: __Confirmed__, fixed in [PR #77](https://github.com/elasticdao/contracts/pull/77)
+
+#### Team Comments
+
+Good catch. Thank you.
+
+### [Bug 7](https://github.com/code-423n4/contest-2-results/blob/main/pocoTiempo/pocoTiempo-submission.md#bug-7)
+
+Status: __Confirmed__, fixed in [PR #60](https://github.com/elasticdao/contracts/pull/60/files)
+
+#### Team Comments
+
+We also completely removed this check in [PR #81](https://github.com/elasticdao/contracts/pull/81) since SafeMath already guards against this issue.
+
+### [Bug 8](https://github.com/code-423n4/contest-2-results/blob/main/pocoTiempo/pocoTiempo-submission.md#bug-8)
+
+Status: __Disputed__
+
+#### Team Comments
+
+This would have been a very large issue indeed. Fortunately, the bug report was actually incorrect. We spent 2 days on this issue and engaged several outside maths experts to review our findings. We also reached out to the original team who developed the function and got them involved. They have closed the issue. The example provided by the wardens here would result in a legit `0` value as `wmul(1, 1)` is equivalent to `0.000000000000000001 * 0.000000000000000001`. The resulting value is far less than the minimum supported value in solidity and correctly rounds to `0`. Accordingly, we do not feel as though treating this as an error state makes sense. More detail is now available on the original issue, and in this gist (https://gist.github.com/smalldutta/51a9836b223277f1595467ad81f27737), compiled by our math guy, @smalldutta.
+
+### [Bug 9](https://github.com/code-423n4/contest-2-results/blob/main/pocoTiempo/pocoTiempo-submission.md#bug-9)
+
+Status: __Confirmed__, fixed in [PR #59](https://github.com/elasticdao/contracts/pull/59/files#diff-b01d843824b5d557c2914b0f42fdf4ef84315a85723a9640b7040ec8c29f2cefR241)
+
+#### Team Comments
+
+Good catch here. This issue had a number of impacts and has now been resolved by allowing a user to pass more ETH than needed with the call.
+
+### [Gas Optimization 1](https://github.com/code-423n4/contest-2-results/blob/main/pocoTiempo/pocoTiempo-submission.md#gas-optimization-1)
+
+Status: __Confirmed__, fixed in [PR #69](https://github.com/elasticdao/contracts/issues/69)
+
+#### Team Comments
+
+We actually had another reviewer suggest that this was no longer the case. We created simple contracts to test which was more expensive, and the OZ version saves ~1800 gas, which is non-trivial when considering the number of times this guard is used.
+
+### [Gas Optimization 2](https://github.com/code-423n4/contest-2-results/blob/main/pocoTiempo/pocoTiempo-submission.md#gas-optimization-2)
+
+Status: __Confirmed__, partially fixed in [PR #56](https://github.com/elasticdao/contracts/pull/56)
+
+#### Team Comments
+
+We fixed the first instance, but decided not to change the second. Our reasoning is that the IElasticToken interface specifies a boolean return and an alternate implementation could return false in the future. This may be an upgrade of our own, or someone else implementing an IElasticToken with a different set of considerations.
+
+## s!m0
+
+### [Exploit](https://github.com/code-423n4/contest-2-results/blob/main/s1m0/Bug1.sol)
+
+Status: __Unclear__
+
+#### Team Comments
+
+There is no description provided for the code submitted. It looks as though the warden is reporting the lack of guard on Token.updateNumberOfTokenHolders. If so, this has been resolved as noted earlier. If the warden can provide more info, we're happy to respond more directly.
