@@ -220,3 +220,104 @@ Status: __Disputed__
 ### Team Comments
 
 The referenced functionality is performing as expected. It's possible that the warden did not understand intent, but the report is incorrect.
+
+## ncitron
+
+### [Bug 1](https://github.com/code-423n4/contest-2-results/blob/main/ncitron/ncitron-submission.md#bug-1)
+
+Status: __Confirmed__, Resolved in [PR #59](https://github.com/elasticdao/contracts/pull/59)
+
+#### Team Comments
+
+Same as other reports. Definitely worth fixing.
+
+## pauliax
+
+### [Bug 1](https://github.com/code-423n4/contest-2-results/blob/main/pauliax/pauliax-submission.md#bug-1)
+
+Status: __Confirmed__, Resolved in [PR #42](https://github.com/elasticdao/contracts/pull/42)
+
+#### Team Comments
+
+This is a good note and a simple fix to prevent a dumb mistake from costing us money. Thanks!
+
+### [Bug 2](https://github.com/code-423n4/contest-2-results/blob/main/pauliax/pauliax-submission.md#bug-2)
+
+Status: __Confirmed__, Resolved in [PR #54](https://github.com/elasticdao/contracts/pull/54)
+
+#### Team Comments
+
+Good catch. Copy / paste error on our part.
+
+### [Bug 3](https://github.com/code-423n4/contest-2-results/blob/main/pauliax/pauliax-submission.md#bug-3)
+
+Status: __Confirmed__, Resolved in [PR #47](https://github.com/elasticdao/contracts/pull/47/files#diff-b01d843824b5d557c2914b0f42fdf4ef84315a85723a9640b7040ec8c29f2cefR115)
+
+#### Team Comments
+
+Good catch. Fixed and tested.
+
+### [Bug 4](https://github.com/code-423n4/contest-2-results/blob/main/pauliax/pauliax-submission.md#bug-4)
+
+Status: __Confirmed__, Resolved in [PR #60](https://github.com/elasticdao/contracts/pull/60) and then removed entirely in [PR #81](https://github.com/elasticdao/contracts/pull/81)
+
+#### Team Comments
+
+Good catch. The statement was unnecessary and not matching our language.
+
+### [Bug 5](https://github.com/code-423n4/contest-2-results/blob/main/pauliax/pauliax-submission.md#bug-5)
+
+Status: __Confirmed__, Resolved in [PR #53](https://github.com/elasticdao/contracts/pull/53)
+
+#### Team Comments
+
+Another obvious oversight on our part. Great catch.
+
+### [Bug 6](https://github.com/code-423n4/contest-2-results/blob/main/pauliax/pauliax-submission.md#bug-6)
+
+Status: __Confirmed__, Resolved in [PR #52](https://github.com/elasticdao/contracts/pull/52)
+
+#### Team Comments
+
+Good catch. Regardless of the way we're decreasing the token balance, we should return the event data in terms of the token balance itself.
+
+### [Bug 7](https://github.com/code-423n4/contest-2-results/blob/main/pauliax/pauliax-submission.md#bug-7)
+
+Status: __Confirmed__, Resolved in [PR #43](https://github.com/elasticdao/contracts/pull/43)
+
+#### Team Comments
+
+This bug was an obvious oversight by us and a great catch. We have completely removed the Configurator.sol contract in order to make permissions simpler. It's functionality has been folded into [ElasticDAO.sol](https://github.com/elasticdao/contracts/blob/release/0.9.0/src/core/ElasticDAO.sol).
+
+Note to the judges, cmichel has this as 3 bugs. pauliax's submission should count 3 times, or cmichel's should count once.
+
+### [Bug 8](https://github.com/code-423n4/contest-2-results/blob/main/pauliax/pauliax-submission.md#bug-8)
+
+Status: __Acknowledged__
+
+#### Team Comments
+
+This should not be an issue, as summoners are only set before the DAO is summoned. Additionally, the summoners have no special case or reason for existance after summoning.
+
+### [Code style & notes](https://github.com/code-423n4/contest-2-results/blob/main/pauliax/pauliax-submission.md#code-style--notes)
+
+- __Confirmed__, fixed in [PR #68](https://github.com/elasticdao/contracts/pull/68)
+- __Confirmed__, fixed in [PR #70](https://github.com/elasticdao/contracts/pull/70)
+- __Acknowledged__, in this case we're going to keep them seperate to save on execution gas costs
+- __Confirmed__, fixed in [PR #73](https://github.com/elasticdao/contracts/pull/73)
+- __Confirmed__, instead we've removed the Configurator contract entirely
+- __Confirmed__, fixed in [PR #83](https://github.com/elasticdao/contracts/pull/83)
+
+### [Gas optimizations](https://github.com/code-423n4/contest-2-results/blob/main/pauliax/pauliax-submission.md#gas-optimizations)
+
+- __Confirmed__, fixed in [PR #56](https://github.com/elasticdao/contracts/pull/56)
+- __Confirmed__, fixed in [PR #51](https://github.com/elasticdao/contracts/pull/51)
+- __Confirmed__, fixed in [PR #50](https://github.com/elasticdao/contracts/pull/50)
+- __Acknowledged__, we like the additional safety of the checks. Gas costs are less important as this function is called infrequently.
+- __Confirmed__, fixed in [PR #76](https://github.com/elasticdao/contracts/pull/76)
+- __Confirmed__, fixed in [PR #57](https://github.com/elasticdao/contracts/pull/57)
+- __Confirmed__, fixed in [PR #85](https://github.com/elasticdao/contracts/pull/85)
+- __Confirmed__, fixed in [PR #58](https://github.com/elasticdao/contracts/pull/58)
+- __Acknowledged__, We believe that the safety provided by additional, arguably unneccesary, calls to preventReentry justify the extra gas spent.
+- __Acknowledged__, this is the case in a few instances, but the gas cost is not large enough to justify the extra function(s)
+
